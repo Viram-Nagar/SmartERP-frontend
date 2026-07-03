@@ -3,9 +3,7 @@
   "buildCommand": "npm run build",
   "devCommand": "npm run dev",
   "installCommand": "npm install",
-  "env": {
-    "NEXT_PUBLIC_API_URL": "http://localhost:5000/api"
-  },
+
   "rewrites": [
     {
       "source": "/api/:path*",
