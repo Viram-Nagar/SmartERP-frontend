@@ -1,6 +1,6 @@
 "use client";
 
-console.log("Dashboard Layout Render");
+console.log("Dashboard Layout Loaded");
 
 import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
