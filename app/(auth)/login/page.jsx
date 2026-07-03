@@ -1,35 +1,41 @@
-'use client';
-
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import api from '@/lib/api';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+"use client";
+console.log("API URL:", process.env.NEXT_PUBLIC_API_URL);
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import api from "@/lib/api";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export default function LoginPage() {
   const router = useRouter();
-  const [form, setForm] = useState({ email: '', password: '' });
-  const [error, setError] = useState('');
+  const [form, setForm] = useState({ email: "", password: "" });
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    setError('');
+    setError("");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError('');
+    setError("");
 
     try {
-      await api.post('/auth/login', form);
-      router.push('/companies');
+      await api.post("/auth/login", form);
+      router.push("/companies");
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed');
+      setError(err.response?.data?.message || "Login failed");
     } finally {
       setLoading(false);
     }
@@ -43,9 +49,13 @@ export default function LoginPage() {
             <div className="w-6 h-6 rounded bg-indigo-500 flex items-center justify-center">
               <span className="text-white text-xs font-bold">S</span>
             </div>
-            <span className="text-white font-semibold tracking-tight">SmartERP</span>
+            <span className="text-white font-semibold tracking-tight">
+              SmartERP
+            </span>
           </div>
-          <p className="text-zinc-500 text-sm">Billing · Inventory · Accounting</p>
+          <p className="text-zinc-500 text-sm">
+            Billing · Inventory · Accounting
+          </p>
         </div>
 
         <Card className="bg-zinc-900 border-zinc-800">
@@ -83,7 +93,7 @@ export default function LoginPage() {
               {error && <p className="text-red-500 text-sm">{error}</p>}
 
               <Button className="w-full" disabled={loading}>
-                {loading ? 'Signing in...' : 'Sign in'}
+                {loading ? "Signing in..." : "Sign in"}
               </Button>
 
               <p className="text-center text-sm">
