@@ -1,5 +1,7 @@
 "use client";
 
+import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
+
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";

@@ -1,5 +1,4 @@
 "use client";
-
 import {
   createContext,
   useContext,
@@ -16,14 +15,22 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   const fetchUser = useCallback(async () => {
-    console.log("Fetching user...");
+    console.log("fetchUser started");
 
     try {
       const res = await api.get("/auth/me");
+      console.log("/auth/me SUCCESS", res.data);
+
       setUser(res.data.user);
-    } catch {
+    } catch (err) {
+      console.log(
+        "/auth/me FAILED",
+        err?.response?.status,
+        err?.response?.data,
+      );
       setUser(null);
     } finally {
+      console.log("fetchUser finished");
       setLoading(false);
     }
   }, []);
@@ -41,6 +48,10 @@ export function AuthProvider({ children }) {
     window.location.href = "/login";
   };
 
+  console.log("AuthProvider", {
+    loading,
+    user,
+  });
   return (
     <AuthContext.Provider
       value={{ user, setUser, loading, logout, refetch: fetchUser }}

@@ -14,12 +14,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useAuth } from "@/context/AuthContext";
 
 export default function LoginPage() {
   const router = useRouter();
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const { refetch } = useAuth();
 
   const handleChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -33,13 +35,45 @@ export default function LoginPage() {
 
     try {
       await api.post("/auth/login", form);
+      const res = await api.post("/auth/login", form);
+
+      console.log("LOGIN RESPONSE", res.data);
+
+      console.log("document.cookie =", document.cookie);
+
+      await refetch();
+
+      router.push("/companies");
+
+      console.log("Login Success");
+
+      await refetch();
+
+      console.log("Refetch Done");
+
       router.push("/companies");
     } catch (err) {
+      console.log(err);
       setError(err.response?.data?.message || "Login failed");
     } finally {
       setLoading(false);
     }
   };
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setLoading(true);
+  //   setError("");
+
+  //   try {
+  //     await api.post("/auth/login", form);
+  //     router.push("/companies");
+  //   } catch (err) {
+  //     setError(err.response?.data?.message || "Login failed");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   return (
     <div className="min-h-screen bg-zinc-950 flex items-center justify-center p-4">

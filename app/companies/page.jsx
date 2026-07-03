@@ -10,6 +10,7 @@ import CompanyFormModal from "@/components/company/CompanyFormModal";
 export default function CompaniesPage() {
   const router = useRouter();
   const { user, loading: authLoading, logout } = useAuth();
+
   const { selectCompany } = useCompany();
 
   const [companies, setCompanies] = useState([]);
@@ -38,8 +39,7 @@ export default function CompaniesPage() {
   useEffect(() => {
     fetchCompanies();
   }, [fetchCompanies]);
-
-  // Keyboard navigation
+  console.log("Companies", { loading, user }); // Keyboard navigation
   useEffect(() => {
     const handler = (e) => {
       if (modalOpen || deleteConfirm) return;
