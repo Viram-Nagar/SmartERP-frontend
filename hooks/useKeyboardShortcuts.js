@@ -11,6 +11,7 @@ export function useKeyboardShortcuts(shortcuts = [], enabled = true) {
   const handler = useCallback(
     (e) => {
       console.log("KEY:", e.key);
+      console.log("Code:", e.code);
       if (!enabled) return;
 
       // Don't fire shortcuts when typing in inputs/textareas/selects

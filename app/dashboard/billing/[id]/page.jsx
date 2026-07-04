@@ -1,5 +1,5 @@
 "use client";
-
+import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import api from "@/lib/api";
@@ -61,6 +61,14 @@ export default function InvoiceDetailPage() {
     }
   };
 
+  useKeyboardShortcuts([
+    {
+      key: "d",
+      ctrl: true,
+      action: handleDownloadPDF,
+    },
+  ]);
+
   const handleMarkPaid = async () => {
     setMarkingPaid(true);
     try {
@@ -117,7 +125,7 @@ export default function InvoiceDetailPage() {
           >
             {downloading ? "Generating..." : "⬇ Download PDF"}
             <kbd className="bg-indigo-500 border border-indigo-400 rounded px-1 text-[10px]">
-              Ctrl+Shift+P
+              Ctrl+D
             </kbd>
           </button>
         </div>

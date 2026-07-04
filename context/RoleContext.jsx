@@ -9,6 +9,7 @@ import {
 } from "react";
 import api from "@/lib/api";
 import { useCompany } from "./CompanyContext";
+import { useAuth } from "./AuthContext";
 
 const RoleContext = createContext(null);
 
@@ -16,9 +17,10 @@ export function RoleProvider({ children }) {
   const { activeCompany } = useCompany();
   const [role, setRole] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { user } = useAuth();
 
   const fetchRole = useCallback(async () => {
-    if (!activeCompany) {
+    if (!activeCompany || !user) {
       setRole(null);
       setLoading(false);
       return;
@@ -33,7 +35,7 @@ export function RoleProvider({ children }) {
     } finally {
       setLoading(false);
     }
-  }, [activeCompany]);
+  }, [activeCompany, user]);
 
   useEffect(() => {
     fetchRole();

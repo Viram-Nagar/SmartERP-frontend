@@ -221,7 +221,14 @@ export default function DashboardLayout({ children }) {
       { key: "h", ctrl: true, action: () => router.push("/dashboard") },
       { key: "k", ctrl: true, action: () => setCmdOpen(true) },
       { key: "F4", action: () => setCalcOpen((v) => !v) },
-      { key: "?", action: () => setHelpOpen(true) },
+      {
+        key: "?",
+        shift: true,
+        action: () => {
+          console.log("? pressed");
+          setHelpOpen(true);
+        },
+      },
       { key: "F5", action: () => window.location.reload() },
       {
         key: "Escape",

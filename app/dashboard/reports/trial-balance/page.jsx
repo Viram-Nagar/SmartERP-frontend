@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import api from "@/lib/api";
 import { useCompany } from "@/context/CompanyContext";
 import ReportShell from "@/components/reports/ReportShell";
@@ -129,7 +129,7 @@ export default function TrialBalancePage() {
               </thead>
               <tbody>
                 {grouped.map((group) => (
-                  <>
+                  <Fragment key={group.nature}>
                     <tr
                       key={`nature-${group.nature}`}
                       className="bg-zinc-800/30"
@@ -142,6 +142,7 @@ export default function TrialBalancePage() {
                         </span>
                       </td>
                     </tr>
+
                     {group.rows.map((r, idx) => (
                       <tr
                         key={r.id}
@@ -211,7 +212,7 @@ export default function TrialBalancePage() {
                         )}
                       </td>
                     </tr>
-                  </>
+                  </Fragment>
                 ))}
               </tbody>
               <tfoot className="border-t-2 border-zinc-700 bg-zinc-800/30">
